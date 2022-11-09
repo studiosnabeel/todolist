@@ -18,7 +18,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Setup
 
-- git clone `https://github.com/studiosnabeel/awesomebooks-with-es6.git`
+- git clone `https://github.com/studiosnabeel/todolist.git`
 
 - cd awesomebooks-with-es6/
 
