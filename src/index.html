@@ -16,21 +16,24 @@
     <section class="todo-container">
       <div class="todo-sub-container">
         <div class="todo">
-          <h3>Today's To Do</h3>
-          <i class="fa-solid fa-arrows-rotate"></i>
-          <hr />
+          <h3 class="todo-h3">Today's To Do</h3>
+          <div><i class="fa-solid fa-arrows-rotate"></i></div>
         </div>
-        <article>
+        <hr />
+        <article class="add-to-list">
           <input
             type="text"
             class="todo-input"
             placeholder="Add to your list..."
           />
+
           <i class="fa-solid fa-turn-down"></i>
-          <hr />
         </article>
+
+        <hr class="todo-hr" />
+
         <ul class="js-list"></ul>
-        <button type="btn">Clear all completed</button>
+        <button type="button" class="btn">Clear all completed</button>
       </div>
     </section>
   </body>
