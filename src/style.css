@@ -83,3 +83,35 @@
   font-size: 18px;
   color: rgb(47, 47, 47);
 }
+
+.js-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.todo-li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-div {
+  list-style-type: none;
+  display: flex;
+  padding: 6px 0;
+}
+
+.fa-trash-can {
+  cursor: pointer;
+  align-self: center;
+}
+
+.todo-input-1 {
+  margin: 0 10px 0 0;
+}
+
+.todo-p-1 {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgb(34, 34, 34);
+}
