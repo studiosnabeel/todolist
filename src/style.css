@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  padding: 50px;
+  background-color: rgb(247, 247, 247);
+}
+
+.todo-sub-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+
+.todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.todo-hr {
+  color: rgb(63, 63, 63);
+}
+
+.todo-h3 {
+  font-size: 26px;
+  font-weight: 600;
+  color: tomato;
+}
+
+.add-to-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.todo-input {
+  border: none;
+  font-size: 20px;
+  align-self: flex-start;
+  width: 90%;
+}
+
+.todo-input:focus {
+  outline: 0;
+  color: rgb(62, 62, 62);
+  font-size: 20px;
+}
+
+.input::placeholder {
+  font-size: 17px;
+}
+
+.fa-turn-down {
+  transform: rotate(90deg);
+  cursor: pointer;
+  color: rgb(74, 74, 74);
+}
+
+.fa-arrows-rotate {
+  color: rgb(82, 82, 82);
+}
+
+.btn {
+  padding: 20px;
+  border: 0;
+  background: rgb(237, 237, 237);
+  width: 100%;
+  cursor: pointer;
+  font-size: 18px;
+  color: rgb(47, 47, 47);
+}
+
+.js-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.todo-li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-div {
+  list-style-type: none;
+  display: flex;
+  padding: 6px 0;
+}
+
+.fa-trash-can {
+  cursor: pointer;
+  align-self: center;
+}
+
+.todo-input-1 {
+  margin: 0 10px 0 0;
+}
+
+.todo-p-1 {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgb(34, 34, 34);
+}

@@ -1,13 +1,16 @@
-import _ from 'lodash';
+import './style.css';
+import { UI, Todo } from '../modules/index.js';
 
-function component() {
-  const element = document.createElement('div');
+// Events
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+document.addEventListener('DOMContentLoaded', UI.displayTodo);
 
-  return element;
-}
+// document.querySelector('.add-to-list').addEventListener('submit', (e) => {
+//    const todoText = document.querySelector('.todo-input').value;
+// });
 
-document.body.appendChild(component());
-index.html;
+// eslint-disable-next-line no-undef, no-unused-vars
+const book = new Todo(desc, completed, id);
+
+// eslint-disable-next-line no-undef
+UI.addBookToList(todo);
