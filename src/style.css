@@ -48,11 +48,16 @@
 }
 
 .todo-input {
-  width: 90%;
-  border: 0;
-  font-size: 17px;
+  border: none;
+  font-size: 20px;
   align-self: flex-start;
   width: 90%;
+}
+
+.todo-input:focus {
+  outline: 0;
+  color: rgb(62, 62, 62);
+  font-size: 20px;
 }
 
 .input::placeholder {
@@ -75,4 +80,6 @@
   background: rgb(237, 237, 237);
   width: 100%;
   cursor: pointer;
+  font-size: 18px;
+  color: rgb(47, 47, 47);
 }
