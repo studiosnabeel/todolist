@@ -1,5 +1,10 @@
 import './style.css';
-// Select the Elements
-const clear = document.querySelector('.clearAll');
-const list = document.querySelector('.js-list');
-const input = document.querySelector('.dataInput');
+
+class Todo {
+  constructor(task) {
+    this.task = task;
+  }
+}
+
+//Instantiate Todo
+const todo = new Todo(task);
