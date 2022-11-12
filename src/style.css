@@ -11,7 +11,7 @@
   width: 100%;
   height: 100vh;
   padding: 50px;
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(56, 157, 224);
 }
 
 .todo-sub-container {
@@ -20,6 +20,14 @@
   flex-direction: column;
   justify-content: center;
   background-color: white;
+}
+
+.todo-li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 20px;
 }
 
 .todo {
@@ -83,57 +91,97 @@
   color: rgb(47, 47, 47);
 }
 
-.js-list {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  gap: 10px;
-}
-
-.todo-li {
-  list-style-type: none;
-}
-
-.delete {
-  float: right;
-  border: none;
-  color: tomato;
-  background-color: white;
-  font-weight: 600;
-}
-
-.checkbox {
-  margin: 0 10px 0 0;
-  float: left;
-  background-color: white;
-  border-color: rgb(133, 189, 228);
-  font-size: 16px;
-}
-
-.fa-check {
-  color: white;
-}
-
-.fa-check.on {
-  color: rgb(0, 148, 247);
-}
-
-.todo-p-1 {
-  float: left;
-  font-size: 20px;
-  font-weight: 400;
-  color: rgb(34, 34, 34);
-}
-
-.todo-p-1.line {
-  float: left;
-  font-size: 20px;
-  font-weight: 400;
-  color: rgb(34, 34, 34);
-  text-decoration: line-through;
-}
-
 #addBtn {
   background-color: white;
   border: none;
+}
+
+.js-list {
+  width: 100%;
+  background-color: var(--secondary-color);
+}
+
+.js-list li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0 var(--fs-1);
+  font-size: var(--fs-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fs-0);
+  position: relative;
+}
+
+.js-list li button {
+  border: 2px solid #c1c1c3;
+  cursor: pointer;
+  color: transparent;
+  border-radius: 2px;
+  margin: var(--fs-1) 0;
+  background-color: transparent;
+  width: 18px;
+  height: 18px;
+}
+
+.todo-sub-container .js-list li > .move-item {
+  cursor: move;
+}
+
+.todo-sub-container .js-list li > .move-item.none {
+  cursor: move;
+  display: none;
+}
+
+.todo-sub-container .js-list li > .delete-item {
+  cursor: pointer;
+  display: none;
+}
+
+.todo-sub-container .js-list li > .delete-item.active {
+  display: inline;
+}
+
+.todo-sub-container .js-list li button > i {
+  color: #2e8ae6;
+  display: none;
+}
+
+.js-list li button i.active {
+  display: inline;
+}
+
+.js-list li .container {
+  flex: 1;
+  font-size: var(--fs-1);
+  word-wrap: break-word;
+  display: flex;
+  align-items: center;
+}
+
+.js-list li .container.active {
+  text-decoration: line-through;
+}
+
+.js-list li .container .content-description {
+  width: 100%;
+  outline: none;
+  padding: 16px 0;
+}
+
+.js-list li.editing {
+  background-color: #fffeca;
+}
+
+.fa-arrows-rotate.active {
+  animation: animateRefresh 2s;
+}
+
+@keyframes animateRefresh {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(720deg);
+  }
 }
