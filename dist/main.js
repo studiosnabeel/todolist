@@ -9,36 +9,6 @@
  */
 (self["webpackChunkwebpack_demo"] = self["webpackChunkwebpack_demo"] || []).push([["main"],{
 
-/***/ "./modules/check.js":
-/*!**************************!*\
-  !*** ./modules/check.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Event: Line through\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (() => {\n  const Check = document.querySelectorAll('.checkbox');\n  const Para = document.querySelectorAll('.todo-p-1');\n  const Tick = document.querySelectorAll('.fa-check');\n\n  Check.forEach((chkBtn, index) => {\n    chkBtn.addEventListener('click', () => {\n      Para[index].classList.toggle('line');\n      Tick[index].classList.toggle('on');\n    });\n  });\n});\n\n\n//# sourceURL=webpack://webpack-demo/./modules/check.js?");
-
-/***/ }),
-
-/***/ "./modules/store.js":
-/*!**************************!*\
-  !*** ./modules/store.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Store)\n/* harmony export */ });\n// Store Class\nclass Store {\n  static getTasks() {\n    let tasks;\n    if (localStorage.getItem('tasks') === null) {\n      tasks = [];\n    } else {\n      tasks = JSON.parse(localStorage.getItem('tasks'));\n    }\n    return tasks;\n  }\n\n  static addTask(task) {\n    const tasks = Store.getTasks();\n\n    tasks.push(task);\n    localStorage.setItem('tasks', JSON.stringify(tasks));\n  }\n\n  static removeTask(item) {\n    const tasks = Store.getTasks();\n\n    tasks.forEach((task, index) => {\n      if (task.item === item) {\n        tasks.splice(index, 1);\n      }\n    });\n    localStorage.setItem('tasks', JSON.stringify(tasks));\n  }\n}\n\n\n//# sourceURL=webpack://webpack-demo/./modules/store.js?");
-
-/***/ }),
-
-/***/ "./modules/todo.js":
-/*!*************************!*\
-  !*** ./modules/todo.js ***!
-  \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Todo)\n/* harmony export */ });\n// Class Todo\nclass Todo {\n  constructor(item, completed = false, index) {\n    this.item = item;\n    this.index = index;\n    this.completed = completed;\n  }\n}\n\n\n//# sourceURL=webpack://webpack-demo/./modules/todo.js?");
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/style.css":
 /*!*************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
@@ -139,13 +109,33 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/check.js":
+/*!**********************!*\
+  !*** ./src/check.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((toDoTasks) => {\n  const checkBtns = document.querySelectorAll('.checkbox');\n  checkBtns.forEach((checkBtn, index) => {\n    checkBtn.addEventListener('click', () => {\n      checkBtn.childNodes[0].classList.toggle('active');\n      checkBtn.nextElementSibling.classList.toggle('active');\n      if (checkBtn.childNodes[0].classList.contains('active')) {\n        toDoTasks.modifyTask(\n          index,\n          checkBtn.nextElementSibling.textContent.trim(),\n          true\n        );\n      } else {\n        toDoTasks.modifyTask(\n          index,\n          checkBtn.nextElementSibling.textContent.trim(),\n          false\n        );\n      }\n    });\n  });\n});\n\n\n//# sourceURL=webpack://webpack-demo/./src/check.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_todo_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modules/todo.js */ \"./modules/todo.js\");\n/* harmony import */ var _modules_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/store.js */ \"./modules/store.js\");\n/* harmony import */ var _modules_check_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/check.js */ \"./modules/check.js\");\n\n\n\n\n\n// UI class: Handle UI tasks\nclass UI {\n  static showTasks() {\n    const tasks = _modules_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].getTasks();\n\n    tasks.forEach((task) => UI.addBookToList(task));\n  }\n\n  static addBookToList(task) {\n    const list = document.querySelector('.js-list');\n\n    // const div = document.createElement('div');\n    // div.classList.add('task-item');\n\n    list.innerHTML += `\n      <li class=\"todo-li\">\n      <button class=\"checkbox\" ><i class=\"fa-solid fa-check ${\n  task.completed ? 'active' : ''\n}\"></i></button>\n        <p class=\"todo-p-1\" id='para' contenteditable='true'>${task.item}</p>\n        <button class='delete'>X</button> \n      </li>`;\n  }\n\n  // remove function\n  static removeTask(element) {\n    if (element.classList.contains('delete')) {\n      element.parentElement.remove();\n    }\n  }\n\n  static clearfields() {\n    document.querySelector('#dataInput').value = '';\n  }\n}\n\n// Event: Show Items\ndocument.addEventListener('DOMContentLoaded', () => {\n  UI.showTasks();\n  document.querySelectorAll('#para').forEach((paragraph, index) => {\n    paragraph.addEventListener('input', () => {\n      // const todo = new Todo(paragraph.textContent);\n      const Storage1 = JSON.parse(localStorage.getItem('tasks')) || [];\n      Storage1[index].item = paragraph.textContent;\n      localStorage.setItem('tasks', JSON.stringify(Storage1));\n    });\n  });\n  document.querySelectorAll('.delete').forEach((deleteButton) => {\n    deleteButton.addEventListener('click', (e) => {\n      // remove task from UI\n      _modules_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].removeTask(e.target.previousElementSibling.textContent);\n      UI.removeTask(e.target);\n\n      // Remove task from store\n    });\n  });\n});\n\n// Add a task\ndocument.querySelector('.add-to-list').addEventListener('submit', (e) => {\n  // prevent the actual submit\n  e.preventDefault();\n\n  // get form values\n  const item = document.querySelector('#dataInput').value;\n\n  // Instantiate Todo\n  const todo = new _modules_todo_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"](item);\n\n  // Add Task to UI\n  UI.addBookToList(todo);\n\n  // Add task to Store\n  _modules_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].addTask(todo);\n\n  // clear fields\n  UI.clearfields();\n  if (_modules_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].getTasks().length >= 0) {\n    (0,_modules_check_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\n  }\n  document.querySelectorAll('.delete').forEach((deleteButton) => {\n    deleteButton.addEventListener('click', (e) => {\n      // remove task from UI\n      _modules_store_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].removeTask(e.target.previousElementSibling.textContent);\n      UI.removeTask(e.target);\n    });\n  });\n});\n\n\n//# sourceURL=webpack://webpack-demo/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _storage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./storage.js */ \"./src/storage.js\");\n/* harmony import */ var _check_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./check.js */ \"./src/check.js\");\n\r\n\r\n\r\n\r\nconst toDoTasks = new _storage_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\r\nconst list = document.querySelector('.js-list');\r\n\r\n// Dynamically Add items\r\nconst AddListItems = (arr) => {\r\n  list.innerHTML = '';\r\n  arr.forEach((work) => {\r\n    list.innerHTML += `\r\n    <li class=\"todo-li\">\r\n      <button class=\"checkbox\" ><i class=\"fa-solid fa-check ${\r\n        work.completed ? 'active' : ''\r\n      }\"></i></button>\r\n      <div class=\"container ${work.completed ? 'active' : ''}\">\r\n      <div contenteditable=\"true\" class=\"todo-p-1\" id='para'\">${\r\n        work.description\r\n      }</div>\r\n      </div>\r\n      <i class=\"move-item fa-solid fa-ellipsis-vertical\"></i>\r\n      <i class=\"delete-item fa-regular fa-trash-can\"></i>\r\n    </li>\r\n    `;\r\n  });\r\n};\r\n// Sort array by indexes\r\nconst sortArray = (arr) => arr.sort((a, b) => a.index - b.index);\r\n\r\nconst ListItemsWithCheckBtns = (arr) => {\r\n  AddListItems(sortArray(arr));\r\n  // After populating list items, we add click listener on check marks\r\n  (0,_check_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(toDoTasks);\r\n\r\n  // Modify values + delete btn event listener\r\n  const modifyTaskLists = document.querySelectorAll('.todo-p-1');\r\n  const moveItemBtn = document.querySelectorAll('.move-item');\r\n  const deleteItemBtn = document.querySelectorAll('.delete-item');\r\n  modifyTaskLists.forEach((modifyTask, index) => {\r\n    modifyTask.addEventListener('input', () => {\r\n      toDoTasks.modifyTask(\r\n        index,\r\n        modifyTask.textContent,\r\n        toDoTasks.arr[index].completed\r\n      );\r\n    });\r\n\r\n    modifyTask.addEventListener('focus', () => {\r\n      modifyTask.parentElement.parentElement.classList.add('editing');\r\n      moveItemBtn[index].classList.add('none');\r\n      deleteItemBtn[index].classList.add('active');\r\n      // prevent input from loosing focus\r\n      deleteItemBtn[index].addEventListener('pointerdown', (event) => {\r\n        event.preventDefault();\r\n      });\r\n      deleteItemBtn[index].addEventListener('click', () => {\r\n        toDoTasks.deleteTask(index);\r\n        ListItemsWithCheckBtns(sortArray(toDoTasks.arr));\r\n      });\r\n    });\r\n\r\n    modifyTask.addEventListener('blur', () => {\r\n      modifyTask.parentElement.parentElement.classList.remove('editing');\r\n      moveItemBtn[index].classList.remove('none');\r\n      deleteItemBtn[index].classList.remove('active');\r\n    });\r\n  });\r\n};\r\nListItemsWithCheckBtns(sortArray(toDoTasks.arr));\r\n\r\n// form\r\nconst inputText = document.querySelector('#dataInput');\r\nconst form = document.querySelector('.add-to-list');\r\n\r\nform.addEventListener('submit', (event) => {\r\n  event.preventDefault();\r\n  if (inputText.value.trim().length > 0) {\r\n    toDoTasks.addNewTask({\r\n      description: inputText.value,\r\n    });\r\n    ListItemsWithCheckBtns(sortArray(toDoTasks.arr));\r\n    form.reset();\r\n  }\r\n});\r\n\r\n// Clear completed Tasks\r\nconst clearBtn = document.querySelector('.clearAll');\r\nclearBtn.addEventListener('click', () => {\r\n  toDoTasks.deleteTask();\r\n  ListItemsWithCheckBtns(sortArray(toDoTasks.arr));\r\n});\r\n\r\n// Refresh Button\r\nconst refreshBtn = document.querySelector('.fa-arrows-rotate');\r\nrefreshBtn.addEventListener('click', () => {\r\n  refreshBtn.classList.remove('active');\r\n  setInterval(() => {\r\n    refreshBtn.classList.add('active');\r\n  }, 10);\r\n  ListItemsWithCheckBtns(sortArray(toDoTasks.arr));\r\n});\r\n\n\n//# sourceURL=webpack://webpack-demo/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/storage.js":
+/*!************************!*\
+  !*** ./src/storage.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Storage)\n/* harmony export */ });\nclass Storage {\n  constructor() {\n    this.arr = JSON.parse(localStorage.getItem('tasks')) || [];\n  }\n\n  setLocalStorageItem = () => {\n    localStorage.setItem('tasks', JSON.stringify(this.arr));\n  };\n\n  addNewTask = ({\n    description,\n    completed = false,\n    index = this.arr.length + 1,\n  }) => {\n    this.arr.push({ description, completed, index });\n    this.setLocalStorageItem();\n  };\n\n  deleteTask = (id = null) => {\n    //refactor the array by deleting the index from array if Id or index is available\n    if (id !== null) {\n      this.arr.splice(id, 1);\n      this.arr.forEach((item, i) => {\n        item.index = i + 1;\n      });\n      this.setLocalStorageItem();\n      return;\n    }\n    // filter and return only those elements that have completed = false\n    this.arr = this.arr.filter((obj) => !obj.completed);\n    this.arr.forEach((item, i) => {\n      item.index = i + 1;\n    });\n    this.setLocalStorageItem();\n  };\n\n  modifyTask = (id, description, completed) => {\n    this.arr[id].description = description;\n    this.arr[id].completed = completed;\n    this.setLocalStorageItem();\n  };\n}\n\n\n//# sourceURL=webpack://webpack-demo/./src/storage.js?");
 
 /***/ })
 
