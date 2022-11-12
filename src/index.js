@@ -20,8 +20,8 @@ class UI {
     list.innerHTML += `
       <li class="todo-li">
       <button class="checkbox" ><i class="fa-solid fa-check ${
-        task.completed ? 'active' : ''
-      }"></i></button>
+  task.completed ? 'active' : ''
+}"></i></button>
         <p class="todo-p-1" id='para' contenteditable='true'>${task.item}</p>
         <button class='delete'>X</button> 
       </li>`;
