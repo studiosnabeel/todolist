@@ -17,7 +17,7 @@ export default class Storage {
   };
 
   deleteTask = (id = null) => {
-    //refactor the array by deleting the index from array if Id or index is available
+    // refactor the array by deleting the index from array if Id or index is available
     if (id !== null) {
       this.arr.splice(id, 1);
       this.arr.forEach((item, i) => {

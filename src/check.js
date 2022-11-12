@@ -8,13 +8,13 @@ export default (toDoTasks) => {
         toDoTasks.modifyTask(
           index,
           checkBtn.nextElementSibling.textContent.trim(),
-          true
+          true,
         );
       } else {
         toDoTasks.modifyTask(
           index,
           checkBtn.nextElementSibling.textContent.trim(),
-          false
+          false,
         );
       }
     });

@@ -12,12 +12,12 @@ const AddListItems = (arr) => {
     list.innerHTML += `
     <li class="todo-li">
       <button class="checkbox" ><i class="fa-solid fa-check ${
-        work.completed ? 'active' : ''
-      }"></i></button>
+  work.completed ? 'active' : ''
+}"></i></button>
       <div class="container ${work.completed ? 'active' : ''}">
       <div contenteditable="true" class="todo-p-1" id='para'">${
-        work.description
-      }</div>
+  work.description
+}</div>
       </div>
       <i class="move-item fa-solid fa-ellipsis-vertical"></i>
       <i class="delete-item fa-regular fa-trash-can"></i>
@@ -42,7 +42,7 @@ const ListItemsWithCheckBtns = (arr) => {
       toDoTasks.modifyTask(
         index,
         modifyTask.textContent,
-        toDoTasks.arr[index].completed
+        toDoTasks.arr[index].completed,
       );
     });
 
