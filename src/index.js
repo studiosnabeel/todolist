@@ -1,93 +1,102 @@
 import './style.css';
-import Todo from '../modules/todo.js';
-import Store from '../modules/store.js';
-import toggle from '../modules/check.js';
+import Storage from './storage.js';
+import Check from './check.js';
 
-// UI class: Handle UI tasks
-class UI {
-  static showTasks() {
-    const tasks = Store.getTasks();
+const toDoTasks = new Storage();
+const list = document.querySelector('.js-list');
 
-    tasks.forEach((task) => UI.addBookToList(task));
-  }
-
-  static addBookToList(task) {
-    const list = document.querySelector('.js-list');
-
-    // const div = document.createElement('div');
-    // div.classList.add('task-item');
-
+// Dynamically Add items
+const AddListItems = (arr) => {
+  list.innerHTML = '';
+  arr.forEach((work) => {
     list.innerHTML += `
-      <li class="todo-li">
+    <li class="todo-li">
       <button class="checkbox" ><i class="fa-solid fa-check ${
-  task.completed ? 'active' : ''
-}"></i></button>
-        <p class="todo-p-1" id='para' contenteditable='true'>${task.item}</p>
-        <button class='delete'>X</button> 
-      </li>`;
-  }
+        work.completed ? 'active' : ''
+      }"></i></button>
+      <div class="container ${work.completed ? 'active' : ''}">
+      <div contenteditable="true" class="todo-p-1" id='para'">${
+        work.description
+      }</div>
+      </div>
+      <i class="move-item fa-solid fa-ellipsis-vertical"></i>
+      <i class="delete-item fa-regular fa-trash-can"></i>
+    </li>
+    `;
+  });
+};
+// Sort array by indexes
+const sortArray = (arr) => arr.sort((a, b) => a.index - b.index);
 
-  // remove function
-  static removeTask(element) {
-    if (element.classList.contains('delete')) {
-      element.parentElement.remove();
-    }
-  }
+const ListItemsWithCheckBtns = (arr) => {
+  AddListItems(sortArray(arr));
+  // After populating list items, we add click listener on check marks
+  Check(toDoTasks);
 
-  static clearfields() {
-    document.querySelector('#dataInput').value = '';
-  }
-}
+  // Modify values + delete btn event listener
+  const modifyTaskLists = document.querySelectorAll('.todo-p-1');
+  const moveItemBtn = document.querySelectorAll('.move-item');
+  const deleteItemBtn = document.querySelectorAll('.delete-item');
+  modifyTaskLists.forEach((modifyTask, index) => {
+    modifyTask.addEventListener('input', () => {
+      toDoTasks.modifyTask(
+        index,
+        modifyTask.textContent,
+        toDoTasks.arr[index].completed
+      );
+    });
 
-// Event: Show Items
-document.addEventListener('DOMContentLoaded', () => {
-  UI.showTasks();
-  document.querySelectorAll('#para').forEach((paragraph, index) => {
-    paragraph.addEventListener('input', () => {
-      // const todo = new Todo(paragraph.textContent);
-      const Storage1 = JSON.parse(localStorage.getItem('tasks')) || [];
-      Storage1[index].item = paragraph.textContent;
-      localStorage.setItem('tasks', JSON.stringify(Storage1));
+    modifyTask.addEventListener('focus', () => {
+      modifyTask.parentElement.parentElement.classList.add('editing');
+      moveItemBtn[index].classList.add('none');
+      deleteItemBtn[index].classList.add('active');
+      // prevent input from loosing focus
+      deleteItemBtn[index].addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+      });
+      deleteItemBtn[index].addEventListener('click', () => {
+        toDoTasks.deleteTask(index);
+        ListItemsWithCheckBtns(sortArray(toDoTasks.arr));
+      });
+    });
+
+    modifyTask.addEventListener('blur', () => {
+      modifyTask.parentElement.parentElement.classList.remove('editing');
+      moveItemBtn[index].classList.remove('none');
+      deleteItemBtn[index].classList.remove('active');
     });
   });
-  document.querySelectorAll('.delete').forEach((deleteButton) => {
-    deleteButton.addEventListener('click', (e) => {
-      // remove task from UI
-      Store.removeTask(e.target.previousElementSibling.textContent);
-      UI.removeTask(e.target);
+};
+ListItemsWithCheckBtns(sortArray(toDoTasks.arr));
 
-      // Remove task from store
+// form
+const inputText = document.querySelector('#dataInput');
+const form = document.querySelector('.add-to-list');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (inputText.value.trim().length > 0) {
+    toDoTasks.addNewTask({
+      description: inputText.value,
     });
-  });
+    ListItemsWithCheckBtns(sortArray(toDoTasks.arr));
+    form.reset();
+  }
 });
 
-// Add a task
-document.querySelector('.add-to-list').addEventListener('submit', (e) => {
-  // prevent the actual submit
-  e.preventDefault();
+// Clear completed Tasks
+const clearBtn = document.querySelector('.clearAll');
+clearBtn.addEventListener('click', () => {
+  toDoTasks.deleteTask();
+  ListItemsWithCheckBtns(sortArray(toDoTasks.arr));
+});
 
-  // get form values
-  const item = document.querySelector('#dataInput').value;
-
-  // Instantiate Todo
-  const todo = new Todo(item);
-
-  // Add Task to UI
-  UI.addBookToList(todo);
-
-  // Add task to Store
-  Store.addTask(todo);
-
-  // clear fields
-  UI.clearfields();
-  if (Store.getTasks().length >= 0) {
-    toggle();
-  }
-  document.querySelectorAll('.delete').forEach((deleteButton) => {
-    deleteButton.addEventListener('click', (e) => {
-      // remove task from UI
-      Store.removeTask(e.target.previousElementSibling.textContent);
-      UI.removeTask(e.target);
-    });
-  });
+// Refresh Button
+const refreshBtn = document.querySelector('.fa-arrows-rotate');
+refreshBtn.addEventListener('click', () => {
+  refreshBtn.classList.remove('active');
+  setInterval(() => {
+    refreshBtn.classList.add('active');
+  }, 10);
+  ListItemsWithCheckBtns(sortArray(toDoTasks.arr));
 });
