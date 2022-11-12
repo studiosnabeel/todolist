@@ -1,9 +1,8 @@
-class Todo {
-  constructor(desc, completed, id) {
-    this.desc = desc;
+// Class Todo
+export default class Todo {
+  constructor(item, completed = false, index) {
+    this.item = item;
+    this.index = index;
     this.completed = completed;
-    this.id = id;
   }
 }
-
-export default Todo;

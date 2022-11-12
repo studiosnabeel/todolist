@@ -1,16 +1,93 @@
 import './style.css';
-import { UI, Todo } from '../modules/index.js';
+import Todo from '../modules/todo.js';
+import Store from '../modules/store.js';
+import toggle from '../modules/check.js';
 
-// Events
+// UI class: Handle UI tasks
+class UI {
+  static showTasks() {
+    const tasks = Store.getTasks();
 
-document.addEventListener('DOMContentLoaded', UI.displayTodo);
+    tasks.forEach((task) => UI.addBookToList(task));
+  }
 
-// document.querySelector('.add-to-list').addEventListener('submit', (e) => {
-//    const todoText = document.querySelector('.todo-input').value;
-// });
+  static addBookToList(task) {
+    const list = document.querySelector('.js-list');
 
-// eslint-disable-next-line no-undef, no-unused-vars
-const book = new Todo(desc, completed, id);
+    // const div = document.createElement('div');
+    // div.classList.add('task-item');
 
-// eslint-disable-next-line no-undef
-UI.addBookToList(todo);
+    list.innerHTML += `
+      <li class="todo-li">
+      <button class="checkbox" ><i class="fa-solid fa-check ${
+  task.completed ? 'active' : ''
+}"></i></button>
+        <p class="todo-p-1" id='para' contenteditable='true'>${task.item}</p>
+        <button class='delete'>X</button> 
+      </li>`;
+  }
+
+  // remove function
+  static removeTask(element) {
+    if (element.classList.contains('delete')) {
+      element.parentElement.remove();
+    }
+  }
+
+  static clearfields() {
+    document.querySelector('#dataInput').value = '';
+  }
+}
+
+// Event: Show Items
+document.addEventListener('DOMContentLoaded', () => {
+  UI.showTasks();
+  document.querySelectorAll('#para').forEach((paragraph, index) => {
+    paragraph.addEventListener('input', () => {
+      // const todo = new Todo(paragraph.textContent);
+      const Storage1 = JSON.parse(localStorage.getItem('tasks')) || [];
+      Storage1[index].item = paragraph.textContent;
+      localStorage.setItem('tasks', JSON.stringify(Storage1));
+    });
+  });
+  document.querySelectorAll('.delete').forEach((deleteButton) => {
+    deleteButton.addEventListener('click', (e) => {
+      // remove task from UI
+      Store.removeTask(e.target.previousElementSibling.textContent);
+      UI.removeTask(e.target);
+
+      // Remove task from store
+    });
+  });
+});
+
+// Add a task
+document.querySelector('.add-to-list').addEventListener('submit', (e) => {
+  // prevent the actual submit
+  e.preventDefault();
+
+  // get form values
+  const item = document.querySelector('#dataInput').value;
+
+  // Instantiate Todo
+  const todo = new Todo(item);
+
+  // Add Task to UI
+  UI.addBookToList(todo);
+
+  // Add task to Store
+  Store.addTask(todo);
+
+  // clear fields
+  UI.clearfields();
+  if (Store.getTasks().length >= 0) {
+    toggle();
+  }
+  document.querySelectorAll('.delete').forEach((deleteButton) => {
+    deleteButton.addEventListener('click', (e) => {
+      // remove task from UI
+      Store.removeTask(e.target.previousElementSibling.textContent);
+      UI.removeTask(e.target);
+    });
+  });
+});
