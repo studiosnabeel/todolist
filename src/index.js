@@ -19,7 +19,9 @@ class UI {
 
     list.innerHTML += `
       <li class="todo-li">
-        <input class="checkbox" type="checkbox" />
+      <button class="checkbox" ><i class="fa-solid fa-check ${
+        task.completed ? 'active' : ''
+      }"></i></button>
         <p class="todo-p-1" id='para' contenteditable='true'>${task.item}</p>
         <button class='delete'>X</button> 
       </li>`;
@@ -46,14 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const Storage1 = JSON.parse(localStorage.getItem('tasks')) || [];
       Storage1[index].item = paragraph.textContent;
       localStorage.setItem('tasks', JSON.stringify(Storage1));
-      console.log(Storage1[index].item);
-      console.log(paragraph.textContent);
+      // console.log(Storage1[index].item);
+      // console.log(paragraph.textContent);
     });
   });
   document.querySelectorAll('.delete').forEach((deleteButton) => {
     deleteButton.addEventListener('click', (e) => {
       // remove task from UI
-      console.log('This is working');
+      // console.log('This is working');
       Store.removeTask(e.target.previousElementSibling.textContent);
       UI.removeTask(e.target);
 
@@ -87,7 +89,7 @@ document.querySelector('.add-to-list').addEventListener('submit', (e) => {
   document.querySelectorAll('.delete').forEach((deleteButton) => {
     deleteButton.addEventListener('click', (e) => {
       // remove task from UI
-      console.log('This is working');
+      // console.log('This is working');
       Store.removeTask(e.target.previousElementSibling.textContent);
       UI.removeTask(e.target);
 

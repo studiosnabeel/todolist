@@ -103,8 +103,19 @@
 }
 
 .checkbox {
-  margin: 6px 10px 0 0;
+  margin: 0 10px 0 0;
   float: left;
+  background-color: white;
+  border-color: rgb(133, 189, 228);
+  font-size: 16px;
+}
+
+.fa-check {
+  color: white;
+}
+
+.fa-check.on {
+  color: rgb(0, 148, 247);
 }
 
 .todo-p-1 {
