@@ -42,7 +42,7 @@
 }
 
 .todo-h3 {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 600;
   color: tomato;
 }
@@ -56,7 +56,7 @@
 
 .todo-input {
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   align-self: flex-start;
   width: 90%;
 }
@@ -64,7 +64,8 @@
 .todo-input:focus {
   outline: 0;
   color: rgb(62, 62, 62);
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .input::placeholder {
@@ -87,7 +88,7 @@
   background: rgb(237, 237, 237);
   width: 100%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   color: rgb(47, 47, 47);
 }
 
@@ -99,6 +100,11 @@
 .js-list {
   width: 100%;
   background-color: var(--secondary-color);
+}
+
+.todo-p-1 {
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .js-list li {
@@ -193,5 +199,32 @@
     flex-direction: column;
     background-color: white;
     margin: 0 auto;
+  }
+
+  .todo-h3 {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  .todo-input {
+    font-size: 20px;
+  }
+
+  .clearAll {
+    font-size: 18px;
+  }
+
+  .todo-input {
+    font-size: 20px;
+  }
+
+  .todo-input:focus {
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .todo-p-1 {
+    font-size: 18px;
+    font-weight: 400;
   }
 }
