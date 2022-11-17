@@ -185,3 +185,13 @@
     transform: rotate(720deg);
   }
 }
+
+@media screen and (min-width: 768px) {
+  .todo-sub-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0 auto;
+  }
+}
