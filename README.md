@@ -42,7 +42,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Live Demo of Website
 
-[Nabeel Todo list website](https://studiosnabeel.github.io/todolist/dist/)
+[Nabeel's Todo list website](https://studiosnabeel.github.io/todolist/dist/)
 
 ## :handshake: Contributing
 
